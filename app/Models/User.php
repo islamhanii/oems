@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
+        'role',
+        'phone-number',
+        'address'
     ];
 
     /**
@@ -41,4 +45,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function courses() {
+        return $this->belongsToMany(Course::class, 'user_course')->withTimestamps();
+    }
+    
+    public function exams() {
+        return $this->belongsToMany(Exam::class, 'user_exam')->withPivot('score', 'duration_minutes')->withTimestamps();
+    }
+
+    public function questions() {
+        return $this->belongsToMany(Question::class, 'user_question')->withPivot('answer', 'correct')->withTimestamps();
+    }
 }

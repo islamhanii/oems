@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger('row_id');
             $table->string('table-name', 50);
             $table->timestamp("created_at")->useCurrent();
-            $table->timestamp("updated_at")->useCurrent();
         });
     }
 

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Choice extends Model
 {
     use HasFactory;
+
+    public function question() {
+        return $this->belongsTo(Question::class);
+    }
 }
