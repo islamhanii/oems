@@ -61,7 +61,7 @@ class ApiAuthController extends Controller
         }
 
         // validate creditionals
-        $user = User::where('email', $request->password)->first();
+        $user = User::where('email', $request->email)->first();
 
         if(!$user || !Hash::check($request->password, $user->password)) {
             return Response::json([

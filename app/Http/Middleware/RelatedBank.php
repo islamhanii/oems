@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Bank;
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 
-class ActiveCourse
+class RelatedBank
 {
     /**
      * Handle an incoming request.
@@ -19,13 +19,13 @@ class ActiveCourse
      */
     public function handle(Request $request, Closure $next)
     {
-        $course = Course::find($request->id);
-        if(!$course || $course->active || (!$course->active && Auth::user()->role_id == 2)) {
+        $user = Bank::findOrFail($request->id)->course()->first()->users()->find(Auth::id());
+        if($user) {
             return $next($request);
         }
-        
+
         return Response::json([
-            'message' => 'the course is under maintenance'
+            'error' => 'not authorized'
         ]);
     }
 }

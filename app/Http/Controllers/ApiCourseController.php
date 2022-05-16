@@ -22,6 +22,21 @@ class ApiCourseController extends Controller
                 'message' => 'no matched courses'
             ]);
         }
+
+        return CourseResource::collection($courses);
+    }
+
+    /***************************************************************************/
+
+    public function myCourses() {
+        $courses = Auth::user()->courses()->paginate(12);
+
+        if(count($courses) == 0) {
+            return Response::json([
+                'message' => 'no courses founded'
+            ]);
+        }
+
         return CourseResource::collection($courses);
     }
 
@@ -106,7 +121,7 @@ class ApiCourseController extends Controller
 
     public function manageStatus($id, Request $request) {
         $validator = Validator::make($request->all(), [
-            'active' => 'required|boolean'
+            'status' => 'required|boolean'
         ]);
 
         if($validator->fails()) {
@@ -116,7 +131,7 @@ class ApiCourseController extends Controller
         }
 
         Course::findOrFail($id)->update([
-            'active' => $request->active
+            'active' => $request->status
         ]);
 
         return Response::json([
@@ -128,7 +143,7 @@ class ApiCourseController extends Controller
 
     public function join($id, Request $request) {
         $validator = Validator::make($request->all(), [
-            'access_code' => 'required|integer'
+            'accesscode' => 'required|integer'
         ]);
 
         if($validator->fails()) {
@@ -139,7 +154,7 @@ class ApiCourseController extends Controller
 
         $course = Course::findOrFail($id);
 
-        if($course->access_code != $request->access_code) {
+        if($course->access_code != $request->accesscode) {
             return Response::json([
                 "error" => 'wrong accesscode.'
             ]);

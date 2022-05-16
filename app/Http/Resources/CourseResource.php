@@ -19,12 +19,12 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'code' => $this->code,
-            /*$this->mergeWhen(Auth::user()->role_id == 2, [
-                'access_code' => $this->access_code
-            ]),*/
             'image' => $this->image,
-            'active' => $this->active,
-            $this->mergeWhen($request->is('*courses/show/*'), [
+            'status' => ($this->active)?'open':'close',
+            $this->mergeWhen($request->is('api/courses/show/*'), [
+                $this->mergeWhen(Auth::user()->role_id == 2, [
+                    'access_code' => $this->access_code
+                ]),
                 'description' => $this->description,
                 'created_at' => date('d/m/Y H:i:s', strtotime($this->created_at)),
                 'updated_at' => date('d/m/Y H:i:s', strtotime($this->updated_at))

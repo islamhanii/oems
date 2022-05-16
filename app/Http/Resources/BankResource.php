@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class BankResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,6 +17,8 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'created_at' => date('d/m/Y H:i:s', strtotime($this->created_at)),
+            'updated_at' => date('d/m/Y H:i:s', strtotime($this->updated_at))
         ];
     }
 }
