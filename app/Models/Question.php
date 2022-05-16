@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'header',
+        'images',
+        'diffculty'
+    ];
     
     public function users() {
         return $this->belongsToMany(User::class, 'user_question')->withPivot('answer', 'correct')->withTimestamps();

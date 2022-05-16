@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Choice extends Model
+class Role extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'option',
-        'image',
-        'right_answer'
+        'name'
     ];
 
-    public function question() {
-        return $this->belongsTo(Question::class);
+    public function users() {
+        return $this->hasMany(User::class);
     }
 }

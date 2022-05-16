@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'image',
-        'role',
+        'role_id',
         'phone-number',
         'address'
     ];
@@ -45,6 +45,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
 
     public function courses() {
         return $this->belongsToMany(Course::class, 'user_course')->withTimestamps();

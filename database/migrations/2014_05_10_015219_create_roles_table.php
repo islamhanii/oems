@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_exam', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('exam_id')->constrained('exams');
-            $table->unsignedFloat('score', 5, 2);
-            $table->unsignedTinyInteger('time_minutes');
+            $table->string('name', 50);
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->useCurrent();
         });
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_exam');
+        Schema::dropIfExists('roles');
     }
 };

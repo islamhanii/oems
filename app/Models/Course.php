@@ -9,16 +9,18 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'code',
-        'description',
-        'image',
-        'status'
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
     ];
 
-    public function courses() {
-        return $this->belongsToMany(User::class, 'user_course')->withPivot('created_at');
+    protected $hidden = [
+        'access_code'
+    ];
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'user_course')->withTimestamps();
     }
 
     public function banks() {

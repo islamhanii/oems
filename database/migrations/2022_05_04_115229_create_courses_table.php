@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('code', 20);
-            $table->unsignedMediumInteger('access-code');
+            $table->unsignedMediumInteger('access_code');
             $table->text('description');
             $table->string('image', 100);
-            $table->enum('status', ['open', 'close'])->default('close');
+            $table->boolean('active')->default(false);
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->useCurrent();
         });

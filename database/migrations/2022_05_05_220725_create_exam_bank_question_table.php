@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('exam_id')->constrained('exams');
             $table->unsignedBigInteger('row_id');
-            $table->string('table-name', 50);
+            $table->string('table_name', 50);
+            $table->unsignedTinyInteger('number_of_questions')->nullable()->default(null);
             $table->timestamp("created_at")->useCurrent();
+            $table->timestamp("updated_at")->useCurrent();
         });
     }
 
