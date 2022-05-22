@@ -33,18 +33,19 @@ class ApiBankController extends Controller
 
     /***************************************************************************/
 
-    public function store(Request $request) {
+    public function store($id, Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3|max:100'
         ]);
 
         if($validator->fails()) {
             return Response::json([
-                'validation-errors' => $request->name
+                'validation-errors' => $validator->errors()
             ]);
         }
 
         Bank::create([
+            'course_id' => $id,
             'name' => $request->name
         ]);
 
@@ -62,7 +63,7 @@ class ApiBankController extends Controller
 
         if($validator->fails()) {
             return Response::json([
-                'validation-errors' => $request->name
+                'validation-errors' => $validator->errors()
             ]);
         }
 

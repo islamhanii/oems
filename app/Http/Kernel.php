@@ -68,5 +68,7 @@ class Kernel extends HttpKernel
         'is-student' => \App\Http\Middleware\IsStudent::class,
         'related-course' => \App\Http\Middleware\RelatedCourse::class,
         'related-bank' => \App\Http\Middleware\RelatedBank::class,
+        'related-question' => \App\Http\Middleware\RelatedQuestion::class,
+        'related-image' => \App\Http\Middleware\RelatedImage::class,
     ];
 }

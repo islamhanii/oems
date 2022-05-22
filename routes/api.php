@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiAuthController;
 use App\Http\Controllers\ApiBankController;
 use App\Http\Controllers\ApiCourseController;
+use App\Http\Controllers\ApiQuestionController;
+use App\Http\Controllers\ApiImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,11 +42,23 @@ Route::middleware('auth:sanctum')->group(function() {
             Route::post('/courses/edit/{id}', [ApiCourseController::class, 'update']);
             Route::post('/courses/manage-status/{id}', [ApiCourseController::class, 'manageStatus']);
             Route::get('/courses/{id}/banks', [ApiBankController::class, 'banks']);
-            Route::get('/courses/{id}/banks/create', [ApiBankController::class, 'create']);
+            Route::post('/courses/{id}/banks/create', [ApiBankController::class, 'store']);
         });
 
         Route::middleware('related-bank')->group(function() {
             Route::get('/banks/show/{id}', [ApiBankController::class, 'show']);
+            Route::get('/banks/edit/{id}', [ApiBankController::class, 'update']);
+            Route::get('/banks/{id}/questions', [ApiQuestionController::class, 'questions']);
+            Route::post('/banks/{id}/questions/create', [ApiQuestionController::class, 'store']);
+        });
+
+        Route::middleware('related-question')->group(function() {
+            Route::get('/questions/show/{id}', [ApiQuestionController::class, 'show']);
+            Route::post('/questions/edit/{id}', [ApiQuestionController::class, 'update']);
+        });
+
+        Route::middleware('related-image')->group(function() {
+            Route::post('/images/delete/{id}', [ApiImageController::class, 'delete']);
         });
     });
     
@@ -55,6 +69,6 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 });
 
-// adel@shakel.com  =>  1|zUBkkixz6IcRCxPfOBK3eK8xURfWDTLSSuNuPodH
+// adel@shakel.com  =>  1|dOP7h59mJG1ZBYbBNh8qWShaXHiLUBcMirVP7llT
 
-// monserrat.greenholt@example.net  =>  3|ClPY2jE6gEYhWmVeNI8mk2Vee906VlREGJcQGAC9
+// eleanora56@example.com  =>  2|8uuBrjccjNQSRQEPSzukeTKjacq9TB7wpMiYltIO

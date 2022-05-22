@@ -10,8 +10,8 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable = [
+        'bank_id',
         'header',
-        'images',
         'diffculty'
     ];
     
@@ -25,5 +25,9 @@ class Question extends Model
 
     public function choices() {
         return $this->hasMany(Choice::class);
+    }
+
+    public function images() {
+        return $this->hasMany(Image::class);
     }
 }

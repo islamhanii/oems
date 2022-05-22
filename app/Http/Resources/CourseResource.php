@@ -19,7 +19,7 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'code' => $this->code,
-            'image' => $this->image,
+            'image' => asset('uploads/' . $this->image),
             'status' => ($this->active)?'open':'close',
             $this->mergeWhen($request->is('api/courses/show/*'), [
                 $this->mergeWhen(Auth::user()->role_id == 2, [
