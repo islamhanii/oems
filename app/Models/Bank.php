@@ -17,6 +17,10 @@ class Bank extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function exams() {
+        return $this->belongsToMany(Exam::class, 'exam_bank')->withPivot('number_of_questions');
+    }
+
     public function questions() {
         return $this->hasMany(Question::class);
     }

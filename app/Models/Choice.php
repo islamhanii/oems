@@ -9,6 +9,8 @@ class Choice extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    
     protected $fillable = [
         'option',
         'image',

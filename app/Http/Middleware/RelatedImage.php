@@ -19,7 +19,7 @@ class RelatedImage
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Image::findOrFail($request->id)->question()->first()->bank()->first()->course()->first()->users()->find(Auth::id());
+        $user = Image::findOrFail($request->image_id)->question()->first()->bank()->first()->course()->first()->users()->find(Auth::id());
         if($user) {
             return $next($request);
         }

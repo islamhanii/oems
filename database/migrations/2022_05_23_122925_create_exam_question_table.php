@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exam_bank_question', function (Blueprint $table) {
+        Schema::create('exam_question', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id')->constrained('exams');
-            $table->unsignedBigInteger('row_id');
-            $table->string('table_name', 50);
-            $table->unsignedTinyInteger('number_of_questions')->nullable()->default(null);
-            $table->timestamp("created_at")->useCurrent();
-            $table->timestamp("updated_at")->useCurrent();
+            $table->foreignId('question_id')->constrained('questions');
         });
     }
 
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exam_bank_question');
+        Schema::dropIfExists('exam_question');
     }
 };

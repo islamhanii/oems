@@ -13,16 +13,16 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiQuestionController extends Controller {
     
-    public function show($id) {
-        $question = Question::findOrFail($id);
+    public function show($question_id) {
+        $question = Question::findOrFail($question_id);
 
         return new QuestionResource($question);
     }
 
     /***************************************************************************/
 
-    public function questions($id) {
-        $questions = Bank::findOrFail($id)->questions()->get();
+    public function questions($bank_id) {
+        $questions = Bank::findOrFail($bank_id)->questions()->get();
 
         if(count($questions) == 0) {
             return Response::json([
@@ -35,11 +35,11 @@ class ApiQuestionController extends Controller {
 
     /***************************************************************************/
 
-    public function store($id, Request $request) {
+    public function store($bank_id, Request $request) {
         $validator = Validator::make($request->all(), [
             'header' => 'required|string|min:10|max:5000',
             'diffculty' => 'required|in:easy,normal,hard',
-            'image.*' => 'image|mimes:jpg,jpeg,png|max:2048'
+            'image.*' => 'image|mimes:jpg,jpeg,png|max:1024'
         ]);
 
         if($validator->fails()) {
@@ -57,8 +57,9 @@ class ApiQuestionController extends Controller {
             }
         }
 
-        $question = Question::create([
-            'bank_id' => $id,
+        $bank = Bank::findOrFail($bank_id);
+
+        $question = $bank->questions()->create([
             'header' => $request->header,
             'diffculty' => $request->diffculty,
         ]);
@@ -79,11 +80,11 @@ class ApiQuestionController extends Controller {
 
     /***************************************************************************/
 
-    public function update($id, Request $request) {
+    public function update($question_id, Request $request) {
         $validator = Validator::make($request->all(), [
             'header' => 'required|string|min:10|max:5000',
             'diffculty' => 'required|in:easy,normal,hard',
-            'image.*' => 'image|mimes:jpg,jpeg,png|max:2048'
+            'image.*' => 'image|mimes:jpg,jpeg,png|max:1024'
         ]);
 
         if($validator->fails()) {
@@ -92,7 +93,7 @@ class ApiQuestionController extends Controller {
             ]);
         }
 
-        $question = Question::findOrFail($id);
+        $question = Question::findOrFail($question_id);
         
         if($request->hasFile('image')) {
             $count = $question->images()->count() + count($request->image);

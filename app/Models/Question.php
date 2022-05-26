@@ -10,13 +10,16 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable = [
-        'bank_id',
         'header',
         'diffculty'
     ];
     
     public function users() {
         return $this->belongsToMany(User::class, 'user_question')->withPivot('answer', 'correct')->withTimestamps();
+    }
+
+    public function exams() {
+        return $this->belongsToMany(Exam::class, 'exam_question');
     }
 
     public function bank() {

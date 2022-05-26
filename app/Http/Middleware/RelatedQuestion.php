@@ -19,7 +19,7 @@ class RelatedQuestion
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Question::findOrFail($request->id)->bank()->first()->course()->first()->users()->find(Auth::id());
+        $user = Question::findOrFail($request->question_id)->bank()->first()->course()->first()->users()->find(Auth::id());
         if($user) {
             return $next($request);
         }

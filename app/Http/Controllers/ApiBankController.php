@@ -11,16 +11,16 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiBankController extends Controller
 {
-    public function show($id) {
-        $bank = Bank::findOrFail($id);
+    public function show($bank_id) {
+        $bank = Bank::findOrFail($bank_id);
 
         return new BankResource($bank);
     }
 
     /***************************************************************************/
 
-    public function banks($id) {
-        $banks = Course::findOrFail($id)->banks()->paginate(8);
+    public function banks($course_id) {
+        $banks = Course::findOrFail($course_id)->banks()->get();
 
         if(count($banks) == 0) {
             return Response::json([
@@ -33,7 +33,7 @@ class ApiBankController extends Controller
 
     /***************************************************************************/
 
-    public function store($id, Request $request) {
+    public function store($course_id, Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3|max:100'
         ]);
@@ -44,8 +44,9 @@ class ApiBankController extends Controller
             ]);
         }
 
-        Bank::create([
-            'course_id' => $id,
+        $course = Course::findOrFail($course_id);
+
+        $course->banks()->create([
             'name' => $request->name
         ]);
 
@@ -56,7 +57,7 @@ class ApiBankController extends Controller
 
     /***************************************************************************/
 
-    public function update($id, Request $request) {
+    public function update($bank_id, Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3|max:100'
         ]);
@@ -67,7 +68,7 @@ class ApiBankController extends Controller
             ]);
         }
 
-        $bank = Bank::findOrFail($id);
+        $bank = Bank::findOrFail($bank_id);
 
         $bank->update([
             'name' => $request->name

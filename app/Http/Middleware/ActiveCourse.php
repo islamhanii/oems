@@ -19,7 +19,7 @@ class ActiveCourse
      */
     public function handle(Request $request, Closure $next)
     {
-        $course = Course::find($request->id);
+        $course = Course::find($request->course_id);
         if(!$course || $course->active || (!$course->active && Auth::user()->role_id == 2)) {
             return $next($request);
         }

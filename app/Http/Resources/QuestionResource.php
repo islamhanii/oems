@@ -15,11 +15,16 @@ class QuestionResource extends JsonResource
      */
     public function toArray($request)
     {
+        $images = ImageResource::collection($this->images()->get());
+        $choices = ChoiceResource::collection($this->choices()->get());
         return [
             'id' => $this->id,
             'header' => $this->header,
             'diffculty' => $this->diffculty,
-            'images' => ImageResource::collection($this->images()->get()),
+            $this->mergeWhen($request->is('api/questions/show/*'), [
+                'images' => (count($images)>0)?$images:null,
+                'choices' => (count($choices)>0)?$choices:null,
+            ]),
             'created_at' => date('d/m/Y H:i:s', strtotime($this->created_at)),
             'updated_at' => date('d/m/Y H:i:s', strtotime($this->updated_at))
         ];

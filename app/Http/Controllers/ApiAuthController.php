@@ -28,13 +28,16 @@ class ApiAuthController extends Controller
         }
 
         // store image file
-        $path = Storage::putFile("users", $request->file("image"));
+        $path = null;
+        if($request->hasFile('image')) {
+            $path = Storage::putFile("users", $request->file("image"));
+        }
 
         // store new user
         $user = User::create([
             'name'      => $request->name,
             'email'     => $request->email,
-            'role_id'      => $request->role,
+            'role_id'   => $request->role,
             'password'  => Hash::make($request->password),
             'image'     => $path
         ]);

@@ -42,8 +42,8 @@ class ApiCourseController extends Controller
 
     /***************************************************************************/
 
-    public function show($id) {
-        $course = Course::findOrFail($id);
+    public function show($course_id) {
+        $course = Course::findOrFail($course_id);
 
         return new CourseResource($course);
     }
@@ -55,7 +55,7 @@ class ApiCourseController extends Controller
             'name' => 'required|string|min:5|max:100',
             'code' => 'required|string|min:2|max:20',
             'description' => 'required|string|min:50|max:5000',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:1024'
         ]);
 
         if($validator->fails()) {
@@ -83,12 +83,12 @@ class ApiCourseController extends Controller
 
     /***************************************************************************/
 
-    public function update($id, Request $request) {
+    public function update($course_id, Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:5|max:100',
             'code' => 'required|string|min:2|max:20',
             'description' => 'required|string|min:50|max:5000',
-            'image' => 'image|mimes:jpg,jpeg,png|max:2048'
+            'image' => 'image|mimes:jpg,jpeg,png|max:1024'
         ]);
 
         if($validator->fails()) {
@@ -97,11 +97,11 @@ class ApiCourseController extends Controller
             ]);
         }
 
-        $course = Course::findOrFail($id);
+        $course = Course::findOrFail($course_id);
         $path = $course->path;
 
         if($request->hasFile('image')) {
-            if($path != null)   Storage::delete($path);
+            if($path != null)   { Storage::delete($path); }
             $path = Storage::putFile('courses', $request->file('image'));
         }
 
@@ -119,7 +119,7 @@ class ApiCourseController extends Controller
 
     /***************************************************************************/
 
-    public function manageStatus($id, Request $request) {
+    public function manageStatus($course_id, Request $request) {
         $validator = Validator::make($request->all(), [
             'status' => 'required|boolean'
         ]);
@@ -130,7 +130,7 @@ class ApiCourseController extends Controller
             ]);
         }
 
-        Course::findOrFail($id)->update([
+        Course::findOrFail($course_id)->update([
             'active' => $request->status
         ]);
 
@@ -141,7 +141,7 @@ class ApiCourseController extends Controller
 
     /***************************************************************************/
 
-    public function join($id, Request $request) {
+    public function join($course_id, Request $request) {
         $validator = Validator::make($request->all(), [
             'accesscode' => 'required|integer'
         ]);
@@ -152,7 +152,7 @@ class ApiCourseController extends Controller
             ]);
         }
 
-        $course = Course::findOrFail($id);
+        $course = Course::findOrFail($course_id);
 
         if($course->access_code != $request->accesscode) {
             return Response::json([

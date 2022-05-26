@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 class ApiImageController extends Controller
 {
-    public function delete($id) {
-        $image = Image::findOrFail($id);
+    public function delete($image_id) {
+        $image = Image::findOrFail($image_id);
         Storage::delete($image->name);
         $image->delete();
 

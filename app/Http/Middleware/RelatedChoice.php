@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Course;
+use App\Models\Choice;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 
-class RelatedCourse
+class RelatedChoice
 {
     /**
      * Handle an incoming request.
@@ -19,10 +19,7 @@ class RelatedCourse
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role_id == 1) {
-            return $next($request);
-        }
-        $user = Course::findOrFail($request->course_id)->users()->find(Auth::id());
+        $user = Choice::findOrFail($request->choice_id)->question()->first()->bank()->first()->course()->first()->users()->find(Auth::id());
         if($user) {
             return $next($request);
         }

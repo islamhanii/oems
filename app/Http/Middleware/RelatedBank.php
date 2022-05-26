@@ -19,7 +19,7 @@ class RelatedBank
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Bank::findOrFail($request->id)->course()->first()->users()->find(Auth::id());
+        $user = Bank::findOrFail($request->bank_id)->course()->first()->users()->find(Auth::id());
         if($user) {
             return $next($request);
         }
