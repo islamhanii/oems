@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Exam;
+use App\Models\Question;
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Course;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 
-class ActiveCourse
+class CourseQuestion
 {
     /**
      * Handle an incoming request.
@@ -19,13 +19,14 @@ class ActiveCourse
      */
     public function handle(Request $request, Closure $next)
     {
-        $course = Course::find($request->course_id);
-        if(!$course || $course->active || Auth::user()->role_id == 2) {
+        $question = Question::findOrFail($request->question_id)->bank()->first()->course()->first();
+        $exam = Exam::findOrFail($request->exam_id)->course()->first();
+        if($question->id == $exam->id) {
             return $next($request);
         }
-        
+
         return Response::json([
-            'message' => 'the course is under maintenance'
+            'error' => 'you cannot add question from other exam'
         ]);
     }
 }

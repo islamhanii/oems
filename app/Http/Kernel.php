@@ -64,6 +64,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'active-course' => \App\Http\Middleware\ActiveCourse::class,
+        'active-exam' => \App\Http\Middleware\ActiveExam::class,
+        'started-exam' => \App\Http\Middleware\StartedExam::class,
         'is-teacher' => \App\Http\Middleware\IsTeacher::class,
         'is-student' => \App\Http\Middleware\IsStudent::class,
         'related-course' => \App\Http\Middleware\RelatedCourse::class,
@@ -72,5 +74,7 @@ class Kernel extends HttpKernel
         'related-question' => \App\Http\Middleware\RelatedQuestion::class,
         'related-image' => \App\Http\Middleware\RelatedImage::class,
         'related-choice' => \App\Http\Middleware\RelatedChoice::class,
+        'course-bank' => \App\Http\Middleware\CourseBank::class,
+        'course-question' => \App\Http\Middleware\CourseQuestion::class,
     ];
 }

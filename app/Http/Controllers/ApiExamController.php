@@ -6,10 +6,10 @@ use App\Http\Resources\ExamResource;
 use App\Models\Course;
 use App\Models\Exam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class ApiExamController extends Controller
 {
@@ -106,6 +106,11 @@ class ApiExamController extends Controller
     public function addQuestion($exam_id, $question_id) {
         $exam = Exam::findOrFail($exam_id);
 
+        if(DB::table('exam_question')->where('question_id', $question_id)->first()) {
+            return Response::json([
+                'error' => 'question was added to the exam before.'
+            ]);
+        }
         $exam->questions()->attach($question_id);
 
         return Response::json([
@@ -130,12 +135,67 @@ class ApiExamController extends Controller
         
         $exam = Exam::findOrFail($exam_id);
 
+        if(DB::table('exam_bank')->where('bank_id', $bank_id)->first()) {
+            $exam->banks()->updateExistingPivot($bank_id, [
+                'number_of_questions' => $request->number_of_questions
+            ]);
+            return Response::json([
+                'message' => 'bank\'s number of questions updated in the exam successfully.'
+            ]);
+        }
+
         $exam->banks()->attach($bank_id, [
             'number_of_questions' => $request->number_of_questions
         ]);
 
         return Response::json([
             'message' => 'bank added to the exam successfully.'
+        ]);
+    }
+    
+
+    /***************************************************************************/
+
+    /***************************************************************************/
+
+    /***************************************************************************/
+
+    public function start($exam_id) {
+        if(DB::table('user_exam')->where('exam_id', $exam_id)->first()) {
+            return Response::json([
+                'error' => 'you already started the exam.'
+            ]);
+        }
+
+        Auth::user()->exams()->attach($exam_id, [
+            'score' => 0,
+            'time_minutes' => 0
+        ]);
+
+        $exam = Exam::findOrFail($exam_id);
+
+        $questions = $exam->questions()->get();
+        foreach($questions as $question) {
+            Auth::user()->questions()->attach($question->id, [
+                'answer' => null,
+                'correct' => 0
+            ]);
+        }
+
+        $banks = $exam->banks()->get();
+        foreach($banks as $bank) {
+            $questions = $bank->questions()->inRandomOrder()->limit((DB::table('exam_bank')->where('bank_id', $bank->id)->first())->number_of_questions)->get();
+
+            foreach($questions as $question) {
+                Auth::user()->questions()->attach($question->id, [
+                    'answer' => null,
+                    'correct' => 0
+                ]);
+            }
+        }
+
+        return Response::json([
+            'message' => 'exam started successfully.'
         ]);
     }
 }

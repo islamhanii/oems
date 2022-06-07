@@ -35,7 +35,15 @@ Route::middleware('auth:sanctum')->group(function() {
     // common routes
     Route::post('/logout', [ApiAuthController::class, 'logout']);
     Route::get('/myCourses', [ApiCourseController::class, 'myCourses']);
-    Route::get('/courses/show/{course_id}', [ApiCourseController::class, 'show'])->middleware('active-course', 'related-course');
+
+    Route::middleware('related-course', 'active-course')->group(function() {
+        Route::get('/courses/show/{course_id}', [ApiCourseController::class, 'show']);
+        Route::get('/courses/{course_id}/exams', [ApiExamController::class, 'exams']);
+    });
+
+    Route::middleware('related-exam')->group(function() {
+        Route::get('/exams/show/{exam_id}', [ApiExamController::class, 'show']);
+    });
 
     // teacher routes
     Route::middleware('is-teacher')->group(function() {
@@ -46,7 +54,6 @@ Route::middleware('auth:sanctum')->group(function() {
             Route::post('/courses/manage-status/{course_id}', [ApiCourseController::class, 'manageStatus']);
 
             Route::get('/courses/{course_id}/banks', [ApiBankController::class, 'banks']);
-            Route::get('/courses/{course_id}/exams', [ApiExamController::class, 'exams']);
 
             Route::post('/courses/{course_id}/banks/create', [ApiBankController::class, 'store']);
             Route::post('/courses/{course_id}/exams/create', [ApiExamController::class, 'store']);
@@ -82,11 +89,10 @@ Route::middleware('auth:sanctum')->group(function() {
 
         // exams actions
         Route::middleware('related-exam')->group(function() {
-            Route::get('/exams/show/{exam_id}', [ApiExamController::class, 'show']);
             Route::post('/exams/edit/{exam_id}', [ApiExamController::class, 'update']);
             
-            Route::post('/exams/{exam_id}/add-question/{question_id}', [ApiExamController::class, 'addQuestion'])->middleware('related-question');
-            Route::post('/exams/{exam_id}/add-bank/{bank_id}', [ApiExamController::class, 'addBank'])->middleware('related-bank');
+            Route::post('/exams/{exam_id}/add-question/{question_id}', [ApiExamController::class, 'addQuestion'])->middleware('related-question', 'course-question');
+            Route::post('/exams/{exam_id}/add-bank/{bank_id}', [ApiExamController::class, 'addBank'])->middleware('related-bank', 'course-bank');
         });
     });
     
@@ -94,6 +100,13 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::middleware('is-student')->group(function() {
         Route::get('/courses/search/{keyword}', [ApiCourseController::class, 'search']);
         Route::post('/courses/join/{course_id}', [ApiCourseController::class, 'join'])->middleware('active-course');
+
+        Route::middleware('related-exam', 'active-exam')->group(function() {
+            Route::post('/exams/{exam_id}/start', [ApiExamController::class, 'start']);
+            Route::middleware('started-exam')->group(function() {
+                Route::get('/exams/show/{exam_id}/questions', [ApiExamController::class, 'show']);
+            });
+        });
     });
 });
 

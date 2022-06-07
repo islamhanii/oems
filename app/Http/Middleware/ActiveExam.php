@@ -2,13 +2,15 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Exam;
 use Closure;
+use DateTime;
 use Illuminate\Http\Request;
-use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
-class ActiveCourse
+class ActiveExam
 {
     /**
      * Handle an incoming request.
@@ -19,13 +21,18 @@ class ActiveCourse
      */
     public function handle(Request $request, Closure $next)
     {
-        $course = Course::find($request->course_id);
-        if(!$course || $course->active || Auth::user()->role_id == 2) {
+        $exam = Exam::findOrFail($request->exam_id);
+        $time1 = new DateTime($exam->started_at);
+        $time2 = new DateTime($exam->started_at);
+        $time2->modify("+{$exam->active_minutes} minutes");
+        $now = new DateTime(date('Y-m-d H:i:s'));
+
+        if(($time1 < $now && $time2 > $now) || Auth::user()->role_id == 2) {
             return $next($request);
         }
         
         return Response::json([
-            'message' => 'the course is under maintenance'
+            'message' => 'the exam closed right now'
         ]);
     }
 }

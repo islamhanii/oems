@@ -4,11 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
-class ActiveCourse
+class StartedExam
 {
     /**
      * Handle an incoming request.
@@ -19,13 +19,13 @@ class ActiveCourse
      */
     public function handle(Request $request, Closure $next)
     {
-        $course = Course::find($request->course_id);
-        if(!$course || $course->active || Auth::user()->role_id == 2) {
+        $user = DB::table('user_exam')->where('exam_id', $request->exam_id)->first();
+        if($user || Auth::user()->role_id == 2) {
             return $next($request);
         }
         
         return Response::json([
-            'message' => 'the course is under maintenance'
+            'message' => 'you should start the exam first'
         ]);
     }
 }
