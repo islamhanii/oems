@@ -62,7 +62,7 @@ Route::middleware('auth:sanctum')->group(function() {
         // banks actions
         Route::middleware('related-bank')->group(function() {
             Route::get('/banks/show/{bank_id}', [ApiBankController::class, 'show']);
-            Route::get('/banks/edit/{bank_id}', [ApiBankController::class, 'update']);
+            Route::post('/banks/edit/{bank_id}', [ApiBankController::class, 'update']);
 
             Route::get('/banks/{bank_id}/questions', [ApiQuestionController::class, 'questions']);
             Route::post('/banks/{bank_id}/questions/create', [ApiQuestionController::class, 'store']);
@@ -78,7 +78,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
         // questions' images actions
         Route::middleware('related-image')->group(function() {
-            Route::post('/images/delete/{image_id}', [ApiImageController::class, 'delete']);
+            Route::get('/images/delete/{image_id}', [ApiImageController::class, 'delete']);
         });
 
         // questions' choices actions
@@ -104,7 +104,7 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::middleware('related-exam', 'active-exam')->group(function() {
             Route::post('/exams/{exam_id}/start', [ApiExamController::class, 'start']);
             Route::middleware('started-exam')->group(function() {
-                Route::get('/exams/show/{exam_id}/questions', [ApiExamController::class, 'show']);
+                Route::get('/exams/{exam_id}/questions', [ApiExamController::class, 'show']);
             });
         });
     });

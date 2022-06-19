@@ -18,7 +18,7 @@ class ExamResource extends JsonResource
     {
         $questions = [];
 
-        if($request->is('api/exams/show/*/questions')) {
+        if($request->is('api/exams/*/questions')) {
             $questions = Auth::user()->questions()->inRandomOrder()->get();
         }
 
@@ -28,10 +28,12 @@ class ExamResource extends JsonResource
             'description' => $this->description,
             'duration_minutes' => $this->duration_minutes,
             'totle' => $this->totle,
+            'active_minutes' => $this->active_minutes,
             $this->mergeWhen(Auth::user()->role_id == 2, [
-                'active_minutes' => $this->active_minutes
+                'banks' => BankResource::collection($this->banks()->get()),
+                'questions' => QuestionResource::collection($this->questions()->get())
             ]),
-            $this->mergeWhen($request->is('api/exams/show/*/questions'), [
+            $this->mergeWhen($request->is('api/exams/*/questions'), [
                 'questions' => QuestionResource::collection($questions),
                 'number_of_questions' => count($questions)
             ]),

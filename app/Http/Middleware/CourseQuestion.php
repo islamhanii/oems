@@ -26,7 +26,7 @@ class CourseQuestion
         }
 
         return Response::json([
-            'error' => 'you cannot add question from other exam'
+            'error' => 'you cannot add question from other course'
         ]);
     }
 }

@@ -17,6 +17,8 @@ class QuestionResource extends JsonResource
     {
         $images = ImageResource::collection($this->images()->get());
         $choices = ChoiceResource::collection($this->choices()->get());
+        $answer = (Auth::user()->role_id == 1)?$this->users()->where('user_id', Auth::id())->first()->pivot->answer:null;
+
         return [
             'id' => $this->id,
             'header' => $this->header,
@@ -25,8 +27,8 @@ class QuestionResource extends JsonResource
                 'images' => (count($images)>0)?$images:null,
                 'choices' => (count($choices)>0)?$choices:null,
             ]),
-            $this->mergeWhen(Auth::user()->role_id == 1, [
-                'answer' => $this->users()->where('user_id', Auth::id())->first()->pivot->answer
+            $this->mergeWhen(($answer != null), [
+                'answer' => $answer
             ]),
             'created_at' => date('d/m/Y H:i:s', strtotime($this->created_at)),
             'updated_at' => date('d/m/Y H:i:s', strtotime($this->updated_at))

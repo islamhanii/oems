@@ -26,7 +26,7 @@ class CourseBank
         }
 
         return Response::json([
-            'error' => 'you cannot add bank from other exam'
+            'error' => 'you cannot add bank from other course'
         ]);
     }
 }
