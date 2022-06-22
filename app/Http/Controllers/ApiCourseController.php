@@ -6,6 +6,7 @@ use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -142,6 +143,12 @@ class ApiCourseController extends Controller
     /***************************************************************************/
 
     public function join($course_id, Request $request) {
+        if(DB::table('user_course')->where('user_id', Auth::id())->where('course_id', $course_id)->first()) {
+            return Response::json([
+                'error' => 'you already joined this course.'
+            ]);
+        }
+        
         $validator = Validator::make($request->all(), [
             'accesscode' => 'required|integer'
         ]);

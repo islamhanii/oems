@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('exam_id')->constrained('exams');
             $table->unsignedFloat('score', 5, 2);
             $table->unsignedTinyInteger('time_minutes');
+            $table->boolean('finished')->default(0);
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->useCurrent();
         });

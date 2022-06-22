@@ -55,10 +55,10 @@ class User extends Authenticatable
     }
     
     public function exams() {
-        return $this->belongsToMany(Exam::class, 'user_exam')->withPivot('score', 'duration_minutes')->withTimestamps();
+        return $this->belongsToMany(Exam::class, 'user_exam')->withPivot('score', 'time_minutes', 'finished')->withTimestamps();
     }
 
     public function questions() {
-        return $this->belongsToMany(Question::class, 'user_question')->withPivot('answer', 'correct')->withTimestamps();
+        return $this->belongsToMany(Question::class, 'user_question')->withPivot('exam_id', 'answer', 'correct')->withTimestamps();
     }
 }

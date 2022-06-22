@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'active-course' => \App\Http\Middleware\ActiveCourse::class,
         'active-exam' => \App\Http\Middleware\ActiveExam::class,
         'started-exam' => \App\Http\Middleware\StartedExam::class,
+        'exam-not-finished' => \App\Http\Middleware\ExamNotFinished::class,
         'is-teacher' => \App\Http\Middleware\IsTeacher::class,
         'is-student' => \App\Http\Middleware\IsStudent::class,
         'related-course' => \App\Http\Middleware\RelatedCourse::class,
@@ -76,5 +77,6 @@ class Kernel extends HttpKernel
         'related-choice' => \App\Http\Middleware\RelatedChoice::class,
         'course-bank' => \App\Http\Middleware\CourseBank::class,
         'course-question' => \App\Http\Middleware\CourseQuestion::class,
+        'student-question' => \App\Http\Middleware\UserQuestion::class,
     ];
 }

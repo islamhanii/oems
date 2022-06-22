@@ -23,7 +23,7 @@ class QuestionResource extends JsonResource
             'id' => $this->id,
             'header' => $this->header,
             'diffculty' => $this->diffculty,
-            $this->mergeWhen(($request->is('api/questions/show/*') || $request->is('api/exams/show/*/questions')), [
+            $this->mergeWhen(($request->is('api/questions/show/*') || $request->is('api/exams/*/questions')), [
                 'images' => (count($images)>0)?$images:null,
                 'choices' => (count($choices)>0)?$choices:null,
             ]),

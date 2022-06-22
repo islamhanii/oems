@@ -161,9 +161,13 @@ class ApiExamController extends Controller
     /***************************************************************************/
 
     public function start($exam_id) {
-        if(DB::table('user_exam')->where('exam_id', $exam_id)->first()) {
+        if($user = DB::table('user_exam')->where('user_id', Auth::id())->where('exam_id', $exam_id)->first()) {
+            $message = 'you already started this exam.';
+            if($user->finished == 1) {
+                $message = 'you finished this exam yet';
+            }
             return Response::json([
-                'error' => 'you already started the exam.'
+                'message' => $message
             ]);
         }
 
@@ -177,6 +181,7 @@ class ApiExamController extends Controller
         $questions = $exam->questions()->get();
         foreach($questions as $question) {
             Auth::user()->questions()->attach($question->id, [
+                'exam_id' => $exam_id,
                 'answer' => null,
                 'correct' => 0
             ]);
@@ -188,6 +193,7 @@ class ApiExamController extends Controller
 
             foreach($questions as $question) {
                 Auth::user()->questions()->attach($question->id, [
+                    'exam_id' => $exam_id,
                     'answer' => null,
                     'correct' => 0
                 ]);
@@ -196,6 +202,23 @@ class ApiExamController extends Controller
 
         return Response::json([
             'message' => 'exam started successfully.'
+        ]);
+    }
+
+    /***************************************************************************/
+
+    public function finish($exam_id) {
+        $exams = Auth::user()->exams();
+        $exam = $exams->where('exam_id', $exam_id)->first();
+        $time_minutes = intval((strtotime(date("Y-m-d H:i:s")) - strtotime($exam->created_at))/60);
+        $exams->updateExistingPivot($exam_id, [
+            'score' => $exam->pivot->score,
+            'finished' => 1,
+            'time_minutes' => $time_minutes
+        ]);
+
+        return Response::json([
+            'message' => 'exam finished successfully.'
         ]);
     }
 }

@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\QuestionResource;
 use App\Models\Bank;
+use App\Models\Choice;
+use App\Models\Exam;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -120,6 +124,67 @@ class ApiQuestionController extends Controller {
 
         return Response::json([
             'message' => 'question updated successfully'
+        ]);
+    }
+
+    /***************************************************************************/
+
+    public function answer($exam_id, $question_id, Request $request) {
+        $validator = Validator::make($request->all(), [
+            'answer' => 'required|string',
+        ]);
+
+        if($validator->fails()) {
+            return Response::json([
+                'validation-errors' => $validator->errors()
+            ]);
+        }
+
+        $answer = explode('|', $request->answer);
+        $correct = 1;
+        foreach($answer as $ans) {
+            $id = (strlen($ans)>20 || !is_numeric($ans))?0:intval($ans);
+            $choice = Choice::where('id', $id)->where('question_id', $question_id)->first();
+            
+            if($choice == null) {
+                return Response::json([
+                    'validation-errors' => [
+                        'answer' => 'submitted choices are not correct'
+                    ]
+                ]);
+            }
+            if($choice->right_answer == 0) {
+                $correct = 0;
+            }
+        }
+
+        if($correct == 1) {
+            $choices = Question::findOrFail($question_id)->choices()->where('right_answer', 1)->count();
+            if(count($answer) != $choices) {
+                $correct = 0;
+            }
+        }
+
+        Auth::user()->questions()->updateExistingPivot($question_id, [
+            'exam_id' => $exam_id,
+            'answer' => $request->answer,
+            'correct' => $correct
+        ]);
+
+        $exam = Auth::user()->questions()->where('exam_id', $request->exam_id);
+        $total = $exam->count();
+        $score = $exam->where('correct', 1)->count();
+        $total = ($score/$total) * Exam::findOrFail($exam_id)->totle;
+
+        $time_minutes = intval((strtotime(date("Y-m-d H:i:s")) - strtotime($exam->first()->created_at))/60);
+        
+        Auth::user()->exams()->updateExistingPivot($exam_id, [
+            'score' => number_format($total, 2, '.'),
+            'time_minutes' => $time_minutes
+        ]);
+
+        return Response::json([
+            'message' => 'your answer submitted successfully.'
         ]);
     }
 }

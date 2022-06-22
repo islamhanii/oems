@@ -19,7 +19,7 @@ class ExamResource extends JsonResource
         $questions = [];
 
         if($request->is('api/exams/*/questions')) {
-            $questions = Auth::user()->questions()->inRandomOrder()->get();
+            $questions = Auth::user()->questions()->where('exam_id', $request->exam_id)->inRandomOrder()->get();
         }
 
         return [

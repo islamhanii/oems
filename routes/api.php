@@ -103,13 +103,15 @@ Route::middleware('auth:sanctum')->group(function() {
 
         Route::middleware('related-exam', 'active-exam')->group(function() {
             Route::post('/exams/{exam_id}/start', [ApiExamController::class, 'start']);
-            Route::middleware('started-exam')->group(function() {
+            Route::middleware('started-exam', 'exam-not-finished')->group(function() {
                 Route::get('/exams/{exam_id}/questions', [ApiExamController::class, 'show']);
+                Route::post('/exams/{exam_id}/questions/{question_id}/answer', [ApiQuestionController::class, 'answer'])->middleware('course-question', 'student-question');
+                Route::post('/exams/{exam_id}/finish', [ApiExamController::class, 'finish']);
             });
         });
     });
 });
 
-// adel@shakel.com  =>  1|mzivF3UgUgLe9Y4MIWxeRWcJ08Y8mQ7ZA4db5n9D
+// adel@shakel.com  =>  1|yViaBLEKvE1Bs3ZtqPPz5KI8mP7hgacvSz5xW4PV
 
-// iliana.rice@example.org  =>  2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk
+// tito52@example.net  =>  2|B9KpvFihYpczkzCI55rl8aNMTPX6WpRzGKCAKiGG

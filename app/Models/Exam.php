@@ -17,7 +17,7 @@ class Exam extends Model
     ];
 
     public function users() {
-        return $this->belongsToMany(User::class, 'user_exam')->withPivot('score', 'duration_minutes')->withTimestamps();
+        return $this->belongsToMany(User::class, 'user_exam')->withPivot('score', 'time_minutes', 'finished')->withTimestamps();
     }
 
     public function course() {

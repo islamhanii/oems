@@ -15,7 +15,7 @@ class Question extends Model
     ];
     
     public function users() {
-        return $this->belongsToMany(User::class, 'user_question')->withPivot('answer', 'correct')->withTimestamps();
+        return $this->belongsToMany(User::class, 'user_question')->withPivot('exam_id', 'answer', 'correct')->withTimestamps();
     }
 
     public function exams() {
