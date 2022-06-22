@@ -109,7 +109,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 								{
 									"key": "image",
 									"type": "file",
-									"src": []
+									"src": "/C:/Users/ELADEL/Desktop/237037950_4210424222366537_5361563623841532575_n.jpg"
 								}
 							]
 						},
@@ -141,7 +141,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"formdata": [
 								{
 									"key": "email",
-									"value": "islamhani433@gmail.com",
+									"value": "tito52@example.net",
 									"type": "text"
 								},
 								{
@@ -215,7 +215,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk",
+									"value": "1|yViaBLEKvE1Bs3ZtqPPz5KI8mP7hgacvSz5xW4PV",
 									"type": "string"
 								}
 							]
@@ -249,7 +249,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk",
+									"value": "2|B9KpvFihYpczkzCI55rl8aNMTPX6WpRzGKCAKiGG",
 									"type": "string"
 								}
 							]
@@ -438,7 +438,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk",
+									"value": "2|B9KpvFihYpczkzCI55rl8aNMTPX6WpRzGKCAKiGG",
 									"type": "string"
 								}
 							]
@@ -450,7 +450,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"formdata": [
 								{
 									"key": "status",
-									"value": "",
+									"value": "1",
 									"description": "0 or 1",
 									"type": "default"
 								}
@@ -484,7 +484,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|mzivF3UgUgLe9Y4MIWxeRWcJ08Y8mQ7ZA4db5n9D",
+									"value": "1|yViaBLEKvE1Bs3ZtqPPz5KI8mP7hgacvSz5xW4PV",
 									"type": "string"
 								}
 							]
@@ -496,7 +496,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"formdata": [
 								{
 									"key": "accesscode",
-									"value": "",
+									"value": "678373",
 									"description": "0 or 1",
 									"type": "default"
 								}
@@ -535,7 +535,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk",
+									"value": "1|yViaBLEKvE1Bs3ZtqPPz5KI8mP7hgacvSz5xW4PV",
 									"type": "string"
 								}
 							]
@@ -570,7 +570,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk",
+									"value": "1|yViaBLEKvE1Bs3ZtqPPz5KI8mP7hgacvSz5xW4PV",
 									"type": "string"
 								}
 							]
@@ -605,7 +605,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|mzivF3UgUgLe9Y4MIWxeRWcJ08Y8mQ7ZA4db5n9D",
+									"value": "1|yViaBLEKvE1Bs3ZtqPPz5KI8mP7hgacvSz5xW4PV",
 									"type": "string"
 								}
 							]
@@ -640,7 +640,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk",
+									"value": "2|B9KpvFihYpczkzCI55rl8aNMTPX6WpRzGKCAKiGG",
 									"type": "string"
 								}
 							]
@@ -652,32 +652,32 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"formdata": [
 								{
 									"key": "name",
-									"value": "",
+									"value": "exam 1",
 									"type": "default"
 								},
 								{
 									"key": "description",
-									"value": "",
+									"value": "haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 									"type": "default"
 								},
 								{
 									"key": "duration_minutes",
-									"value": "",
+									"value": "255",
 									"type": "default"
 								},
 								{
 									"key": "totle",
-									"value": "",
+									"value": "255",
 									"type": "default"
 								},
 								{
 									"key": "active_minutes",
-									"value": "",
+									"value": "255",
 									"type": "default"
 								},
 								{
 									"key": "started_at",
-									"value": "",
+									"value": "2022-06-22 21:52:00",
 									"type": "default"
 								}
 							]
@@ -711,7 +711,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk",
+									"value": "1|zp8NNtOmLY1PYOwnUO833ByQn2fEsR14i6AfWkRB",
 									"type": "string"
 								}
 							]
@@ -723,32 +723,32 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"formdata": [
 								{
 									"key": "name",
-									"value": "",
+									"value": "exam 1",
 									"type": "default"
 								},
 								{
 									"key": "description",
-									"value": "",
+									"value": "sasddddddasssssssssssssssaas",
 									"type": "default"
 								},
 								{
 									"key": "duration_minutes",
-									"value": "",
+									"value": "30",
 									"type": "default"
 								},
 								{
 									"key": "totle",
-									"value": "",
+									"value": "100",
 									"type": "default"
 								},
 								{
 									"key": "active_minutes",
-									"value": "",
+									"value": "15",
 									"type": "default"
 								},
 								{
 									"key": "started_at",
-									"value": "",
+									"value": "2022-06-22 01:03:00",
 									"type": "default"
 								}
 							]
@@ -781,7 +781,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk",
+									"value": "2|B9KpvFihYpczkzCI55rl8aNMTPX6WpRzGKCAKiGG",
 									"type": "string"
 								}
 							]
@@ -821,7 +821,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|XTcajVqbI1luvgEav8jWjc2Q9H43FyDPVRsPdlKk",
+									"value": "2|B9KpvFihYpczkzCI55rl8aNMTPX6WpRzGKCAKiGG",
 									"type": "string"
 								}
 							]
@@ -830,10 +830,16 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 						"header": [],
 						"body": {
 							"mode": "formdata",
-							"formdata": []
+							"formdata": [
+								{
+									"key": "number_of_questions",
+									"value": "8",
+									"type": "default"
+								}
+							]
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/exams/1/add-bank/10",
+							"raw": "http://127.0.0.1:8000/api/exams/1/add-bank/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -847,7 +853,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 								"exams",
 								"1",
 								"add-bank",
-								"10"
+								"2"
 							]
 						}
 					},
@@ -861,7 +867,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 							"bearer": [
 								{
 									"key": "token",
-									"value": "1|mzivF3UgUgLe9Y4MIWxeRWcJ08Y8mQ7ZA4db5n9D",
+									"value": "1|yViaBLEKvE1Bs3ZtqPPz5KI8mP7hgacvSz5xW4PV",
 									"type": "string"
 								}
 							]
@@ -887,6 +893,45 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 								"exams",
 								"1",
 								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finish Exam",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|yViaBLEKvE1Bs3ZtqPPz5KI8mP7hgacvSz5xW4PV",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/exams/1/finish",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"exams",
+								"1",
+								"finish"
 							]
 						}
 					},
@@ -1278,6 +1323,53 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 								"questions",
 								"edit",
 								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Answer Question",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|yViaBLEKvE1Bs3ZtqPPz5KI8mP7hgacvSz5xW4PV",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "answer",
+									"value": "119",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/exams/1/questions/30/answer",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"exams",
+								"1",
+								"questions",
+								"30",
+								"answer"
 							]
 						}
 					},
