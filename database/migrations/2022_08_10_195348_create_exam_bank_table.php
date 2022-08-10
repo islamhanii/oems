@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateExamBankTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('choices', function (Blueprint $table) {
+        Schema::create('exam_bank', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_id')->constrained('questions');
-            $table->text('option');
-            $table->string('image', 100)->nullable();
-            $table->boolean('right_answer')->default(1);
+            $table->foreignId('exam_id')->constrained('exams');
+            $table->foreignId('bank_id')->constrained('banks');
+            $table->unsignedTinyInteger('number_of_questions');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('choices');
+        Schema::dropIfExists('exam_bank');
     }
-};
+}

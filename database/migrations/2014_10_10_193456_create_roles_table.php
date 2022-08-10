@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exam_bank', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('exam_id')->constrained('exams');
-            $table->foreignId('bank_id')->constrained('banks');
-            $table->unsignedTinyInteger('number_of_questions');
+            $table->string('name', 50);
+            $table->timestamp("created_at")->useCurrent();
+            $table->timestamp("updated_at")->useCurrent();
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exam_bank');
+        Schema::dropIfExists('roles');
     }
-};
+}

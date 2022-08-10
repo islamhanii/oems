@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Course;
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 

@@ -7,7 +7,6 @@ use App\Models\Choice;
 use App\Models\Course;
 use App\Models\Question;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
